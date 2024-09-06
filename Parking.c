@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Parking.h"
+#include "Alley.h"
 #define MAX_QUEUE_SIZE 20
 #include "Car.h"
 
@@ -30,10 +31,10 @@ void manage_input(Parking *p, Car c) {
     p->end_queue = (p->end_queue + 1) % MAX_QUEUE_SIZE;
 
     // Verifica se há espaço em algum dos becos
-    if (add_car_to_alley(&p->alley1, c)) {
+    if (add_car_to_alley(p->alley1, c)) {
         return;
     }
-    if (add_car_to_alley(&p->alley2, c)) {
+    if (add_car_to_alley(p->alley2, c)) {
         return;
     }
 
@@ -42,8 +43,8 @@ void manage_input(Parking *p, Car c) {
 
 void manage_exit(Parking *p, char *plate) {
     // Remove o carro dos becos
-    if (remove_car_from_alley(&p->alley1, plate) ||
-        remove_car_from_alley(&p->alley2, plate)) {
+    if (remove_car_from_alley(p->alley1, plate) ||
+        remove_car_from_alley(p->alley2, plate)) {
         // Se o carro não foi encontrado nos becos, procura na fila
         for (int i = p->start_queue; i != p->end_queue; i = (i + 1) % MAX_QUEUE_SIZE) {
             if (strcmp(p->queue[i].plate, plate) == 0) {
@@ -64,21 +65,12 @@ void manage_exit(Parking *p, char *plate) {
 
 void print_parking(Parking *p) {
     printf("Beco 1:\n");
-    display_alley(&p->alley1);
+    display_alley(p->alley1);
     printf("Beco 2:\n");
-    display_alley(&p->alley2);
+    display_alley(p->alley2);
     printf("Fila de Espera:\n");
     for (int i = p->start_queue; i < p->end_queue; i++) {
         printf("Carro: %s\n", p->queue[i].plate);
-    }
-}
-
-void display_alley(Alley *a) {
-    // Implementação da função de exibição para um beco
-    Elem *current = a->head;
-    while (current) {
-        printf("Carro: Placa %s\n", current->car.plate);
-        current = current->next;
     }
 }
 

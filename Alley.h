@@ -1,8 +1,10 @@
+#ifndef ALLEY_H
+#define ALLEY_H
 #include "Car.h"
 
-typedef struct {
+typedef struct Elem{
     Car car;
-    struct elem *next;
+    struct Elem *next;
 } Elem;
 
 typedef struct{
@@ -21,3 +23,4 @@ void initialize_alley(Alley *a);
 int add_car_to_alley(Alley *a, Car c);
 int remove_car_from_alley(Alley *a, char *plate);
 
+#endif
