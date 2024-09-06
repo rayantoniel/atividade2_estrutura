@@ -1,9 +1,14 @@
 #include "Car.h"
 
-struct Alley {
+typedef struct {
+    char plate[8];
+    int maneuver;
+} Car;
+
+typedef struct {
     Car cars[10];
     int top;
-};
+} Alley;
 
 typedef struct elem *Alley;
 

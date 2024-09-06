@@ -12,7 +12,7 @@ struct Car {
 
 struct elem {
     struct Car data;
-    struct elem *prox;
+    struct elem *next;
 };
 
 typedef struct elem Elem;  // Definindo um alias para "struct elem"
@@ -31,7 +31,7 @@ void release_alley(Alley *a) {
         Elem *in;
         while ((*a) != NULL) {
             in = *a;
-            *a = (*a)->prox;
+            *a = (*a)->next;
             free(in);
         }
         free(a);
@@ -45,7 +45,7 @@ int push_car(Alley *a, struct Car c) {
     if (new == NULL)
         return 0;
     new->data = c;
-    new->prox = (*a);
+    new->next = (*a);
     *a = new;
     return 1;
 }
@@ -54,7 +54,7 @@ int pop_car(Alley *a) {
     if (alley_empty(a))
         return 0;  // Beco vazio
     struct elem *in = *a;
-    *a = in->prox;
+    *a = in->next;
     free(in);
     return 1;
 }
@@ -66,7 +66,7 @@ int alley_full(Alley *a) {
     Elem *in = *a;
     while (in != NULL) {
         tamanho++;
-        in = in->prox;
+        in = in->next;
     }
     return (tamanho >= 10);
 }
@@ -82,7 +82,7 @@ void display_alley(Alley *a) {
     Elem *in = *a;
     while (in != NULL) {
         printf("Carro: %s, Manobras: %d\n", in->data.plate, in->data.maneuver);
-        in = in->prox;
+        in = in->next;
     }
 }
 

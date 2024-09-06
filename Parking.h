@@ -1,9 +1,15 @@
 #include "Car.h"
 #include "Alley.h"
 
+typedef struct{
+    char plate[8];
+    int maneuver;
+} Car;
+
+
 struct Parking {
-    Alley beco1;
-    Alley beco2;
+    Alley alley1;
+    Alley alley2;
     Car queue[20];
     int start_queue;
     int end_queue;
