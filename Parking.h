@@ -2,10 +2,12 @@
 #define PARKING_H
 #include "Car.h"
 #include "Alley.h"
+#define MAX_QUEUE_SIZE 20
+
 typedef struct {
-    Alley alley1;
-    Alley alley2;
-    Car queue[20];
+    Alley *alley1;
+    Alley *alley2;
+    Car queue[MAX_QUEUE_SIZE];
     int start_queue;
     int end_queue;
 } Parking;

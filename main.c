@@ -4,6 +4,7 @@
 #include "Parking.h"
 #include "Car.h"
 
+
 void menu() {
     int option;
     Parking p;
@@ -43,4 +44,9 @@ void menu() {
                 printf("Opcao invalida!\n");
         }
     } while(option != 0);
+}
+
+int main() {
+    menu();
+    return 0;
 }
