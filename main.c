@@ -7,6 +7,7 @@
 
 void menu() {
     int option;
+    int alley_number;
     Parking p;
     initialize_parking(&p);
     do {
@@ -23,7 +24,15 @@ void menu() {
                 printf("Digite a placa do carro: ");
                 scanf("%s", c.plate);
                 c.maneuver = 0;
-                manage_input(&p, c);
+
+                printf("Escolha o beco (1 ou 2): ");
+                scanf("%d", &alley_number);
+                if (alley_number < 1 || alley_number > 2) {
+                    printf("Beco inválido!\n");
+                    break;
+                }
+
+                manage_input(&p, c, alley_number);
                 break;
             }
             case 2: {
@@ -34,11 +43,11 @@ void menu() {
                 break;
             }
             case 3: {
-                print_parking(&p);
+                print_parking(&p, alley_number);
                 break;
             }
             case 0:
-                printf("Saindo...\n");
+                printf("Finalizado!\n");
                 break;
             default:
                 printf("Opcao invalida!\n");
