@@ -27,19 +27,19 @@ void manage_input(Parking* p, Car c, int alley_number) {
     } else if (alley_number == 2) {
         alley = p->alley2;
     } else {
-        printf("Número de beco inválido!\n");
+        printf("\nNúmero de beco inválido!\n");
         return;
     }
 
     if (alley->count >= MAX_CARS_PER_ALLEY) {
-        printf("O beco está cheio!\n");
+        printf("\nO beco está cheio!\n");
         return;
     }
 
-    // Adiciona o carro ao beco
+    //Adiciona o carro ao beco
     Elem* new_elem = (Elem*)malloc(sizeof(Elem));
     if (new_elem == NULL) {
-        printf("Erro ao alocar memória para o carro.\n");
+        printf("\nErro ao alocar memória para o carro.\n");
         return;
     }
 
@@ -48,10 +48,10 @@ void manage_input(Parking* p, Car c, int alley_number) {
     alley->head = new_elem;
     alley->count++;
 
-    printf("Carro adicionado ao beco %d.\n", alley_number);
+    printf("\nCarro adicionado ao beco %d.\n", alley_number);
 }
 
-//REmove carro dos becos
+//Remove carro dos becos
 void manage_exit(Parking *p, char *plate) {
     if (remove_car_from_alley(p->alley1, plate) ||
         remove_car_from_alley(p->alley2, plate)) {
@@ -61,22 +61,22 @@ void manage_exit(Parking *p, char *plate) {
                     p->queue[j] = p->queue[(j + 1) % MAX_QUEUE_SIZE];
                 }
                 p->end_queue = (p->end_queue - 1 + MAX_QUEUE_SIZE) % MAX_QUEUE_SIZE;
-                printf("Carro com placa %s removido da fila.\n", plate);
+                printf("\nCarro com placa %s removido da fila.\n", plate);
                 return;
             }
         }
-        printf("Carro com placa %s não encontrado.\n", plate);
+        printf("\nCarro com placa %s não encontrado.\n", plate);
     } else {
-        printf("Carro com placa %s removido dos becos.\n", plate);
+        printf("\nCarro com placa %s removido dos becos.\n", plate);
     }
 }
 
 void print_parking(Parking *p, int alley_number) {
-    printf("Beco 1:\n");
+    printf("\nBeco 1:\n");
     display_alley(p->alley1);
-    printf("Beco 2:\n");
+    printf("\nBeco 2:\n");
     display_alley(p->alley2);
-    printf("Fila de Espera:\n");
+    printf("\nFila de Espera:\n");
     for (int i = p->start_queue; i != p->end_queue; i = (i + 1) % MAX_QUEUE_SIZE) {
         printf("Carro: %s\n", p->queue[i].plate);
     }

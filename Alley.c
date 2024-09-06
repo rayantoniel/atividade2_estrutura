@@ -138,4 +138,3 @@ int remove_car_from_alley(Alley *a, char *plate) {
 
     return found; 
 }
-
