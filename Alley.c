@@ -101,24 +101,43 @@ int add_car_to_alley(Alley *a, Car c) {
 
 // Remove um carro do beco
 int remove_car_from_alley(Alley *a, char *plate) {
-    Elem *current = a->head;
-    Elem *previous = NULL;
-
-    while (current) {
-        if (strcmp(current->car.plate, plate) == 0) {
-            if (previous) {
-                previous->next = current->next;
-            } else {
-                a->head = current->next;
-            }
-            free(current);
-            a->count--;
-            return 1;  // Carro removido com sucesso
-        }
-        previous = current;
-        current = current->next;
+    // Verifica se o beco está vazio
+    if (alley_empty(a)) {
+        return 0;  // Não há carros no beco
     }
 
-    return 0;  // Carro não encontrado
+    Alley *temp = create_alley();  // Pilha temporária para armazenar os carros manobrados
+    Elem *current = a->head;
+    int found = 0;
+
+    // Percorre o beco até encontrar o carro alvo
+    while (current != NULL) {
+        if (strcmp(current->car.plate, plate) == 0) {
+            found = 1;
+            break;  // Carro encontrado, saímos do laço
+        } else {
+            // Empilha o carro na pilha temporária e incrementa o número de manobras
+            current->car.maneuver++;
+            push_car(temp, current->car);
+            pop_car(a);  // Remove o carro do beco original
+            current = a->head;
+        }
+    }
+
+    // Se o carro foi encontrado, removê-lo
+    if (found) {
+        pop_car(a);  // Remove o carro alvo
+    }
+
+    // Reinsere todos os carros da pilha temporária no beco original
+    while (!alley_empty(temp)) {
+        Car temp_car = temp->head->car;
+        pop_car(temp);
+        push_car(a, temp_car);  // Reinsere o carro no beco original
+    }
+
+    release_alley(temp);  // Libera a memória da pilha temporária
+
+    return found;  // Retorna 1 se o carro foi encontrado e removido
 }
 

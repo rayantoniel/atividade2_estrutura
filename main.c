@@ -27,10 +27,10 @@ void menu() {
                 break;
             }
             case 2: {
-                char placa[8];
+                char plate[8];
                 printf("Digite a placa do carro que deseja retirar: ");
-                scanf("%s", placa);
-                manage_exit(&p, placa);
+                scanf("%s", plate);
+                manage_exit(&p, plate);
                 break;
             }
             case 3: {
