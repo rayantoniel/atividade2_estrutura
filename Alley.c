@@ -2,21 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Alley.h"
+#include "Parking.h"
 #include "Car.h"
-
-
-struct Car {
-    char plate[8];
-    int maneuver;
-};
-
-struct elem {
-    struct Car data;
-    struct elem *next;
-};
-
-typedef struct elem Elem;  // Definindo um alias para "struct elem"
-typedef struct elem *Alley; 
 
 Alley *create_alley() {
     Alley *a = (Alley *) malloc(sizeof(Alley));
@@ -38,10 +25,10 @@ void release_alley(Alley *a) {
     }
 }
 
-int push_car(Alley *a, struct Car c) {
+int push_car(Alley *a, Car c) {
     if (alley_full(a))
         return 0;  // Beco cheio
-    struct elem *new = (struct elem*) malloc(sizeof(struct elem));
+    Elem *new = (Elem*) malloc(sizeof(Elem));
     if (new == NULL)
         return 0;
     new->data = c;

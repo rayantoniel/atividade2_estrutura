@@ -4,23 +4,10 @@
 #include "Parking.h"
 #include "Car.h"
 
-typedef struct {
-    char plate[8];
-    int maneuver;
-} Car;
-
-typedef struct {
-    Alley alley1;
-    Alley alley2;
-    Car queue[20];
-    int start_queue;
-    int end_queue;
-} Parking;
-
 void menu() {
     int option;
     Parking p;
-    inicializar_estacionamento(&p);
+    initialize_parking(&p);
     do {
         printf("\nEstacionamento:\n");
         printf("1. Entrada de Carro\n");
@@ -31,22 +18,22 @@ void menu() {
         
         switch(option) {
             case 1: {
-                struct Car c;
+                Car c;
                 printf("Digite a placa do carro: ");
                 scanf("%s", c.plate);
                 c.maneuver = 0;
-                gerenciar_entrada(&p, c);
+                manage_input(&p, c);
                 break;
             }
             case 2: {
                 char placa[8];
                 printf("Digite a placa do carro que deseja retirar: ");
                 scanf("%s", placa);
-                gerenciar_saida(&p, placa);
+                manage_exit(&p, placa);
                 break;
             }
             case 3: {
-                exibir_estacionamento(&p);
+                print_parking(&p);
                 break;
             }
             case 0:
