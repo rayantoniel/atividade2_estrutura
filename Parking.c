@@ -14,7 +14,7 @@ void initialize_parking(Parking *p) {
     p->start_queue = 0;
     p->end_queue = 0;
     for (int i = 0; i < MAX_QUEUE_SIZE; i++) {
-        p->queue[i] = (Car){0};  // Inicializa cada carro com valores padrão
+        p->queue[i] = (Car){0};  // Inicializa cada carro
     }
 }
 

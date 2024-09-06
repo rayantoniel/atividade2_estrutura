@@ -7,9 +7,10 @@ typedef struct Elem{
     struct Elem *next;
 } Elem;
 
-typedef struct{
+typedef struct {
     Elem *head;
     int count;
+    int maneuvers; 
 } Alley;
 
 Alley *create_alley();  
